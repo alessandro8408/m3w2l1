@@ -26,5 +26,5 @@ con un'analisi statica basica, analizzando quindi specifiche porzioni del file b
 si può dedurre che il malware effettua una connessione ad internet, probabilmente utilizzando protocollo `http`.
 Leggendo il nome delle funzioni vediamo che potrebbe interagire direttamente con `Windows Explorer` e eseguire istruzioni
 basandosi sul tempo locale (`SystemTimeToFile`).
-Dal momento che il file è stato compresso con UPX, è necessario procedere con la fase di debugging per poterlo
-spacchettare.
+Dal momento che il file è stato compresso con UPX, è necessario spacchettare il file con `upx -d` per poter visualizzare il file per intero
+e individuare, ad esempio, le sezioni in chiaro.
