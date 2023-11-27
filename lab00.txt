@@ -13,8 +13,6 @@ Sezioni:
 In questo caso non possiamo individuare immediatamente i nomi delle sezioni all'interno del programma, dal
 momento che possiamo visualizzare solamente "UPX0", "UPX1" e "UPX2". Una breve ricerca su internet ha mostrato
 come "UPX" sia un "packer" per file eseguibili.
-Andando a controllare le informazioni delle sezioni trovate, tuttavia, possiamo intuire, dalla localizzazione in memoria
-"raw", che UPX0 corrisponda all'entry point ("Raw size" nulla).
 Analizzando l'hexdump corrispondente a UPX1, e facilitandoci con l'output del comando "strings", si può intuire che
 sia una sezione di memoria destinata al salvataggio delle variabili e, possibilmente, alle istruzioni vere e proprie
 che compongono il malware. Riusciamo a vedere infatti stringhe comprensibili
