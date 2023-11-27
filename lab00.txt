@@ -1,0 +1,30 @@
+Librerie importate:
+(lab00.png)
+`kernel32.dll`, che permette, tra le altre cose, la gestione della memoria
+`advapi32.dll`, che permette l'interazione con i registri e servizi dell'OS
+`MSVCRT.dll`, che corrisponde a una libreria del linguaggio `C` ed è anch'essa propria di Visual Studio C++
+`WININET.dll`, che permette l'utilizzo di protocolli di rete
+
+Leggendo l'output di `strings` (lab04.png), inoltre, possiamo localizzare `LoadLibrary` e `GetProcAddress`, che fanno
+riferimento all'importazione di libreria in runtime.
+
+Sezioni:
+(lab01.png) (lab02.png) (lab03.png)
+In questo caso non possiamo individuare immediatamente i nomi delle sezioni all'interno del programma, dal
+momento che possiamo visualizzare solamente "UPX0", "UPX1" e "UPX2". Una breve ricerca su internet ha mostrato
+come "UPX" sia un "packer" per file eseguibili.
+Andando a controllare le informazioni delle sezioni trovate, tuttavia, possiamo intuire, dalla localizzazione in memoria
+"raw", che UPX0 corrisponda all'entry point ("Raw size" nulla).
+Analizzando l'hexdump corrispondente a UPX1, e facilitandoci con l'output del comando "strings", si può intuire che
+sia una sezione di memoria destinata al salvataggio delle variabili e, possibilmente, alle istruzioni vere e proprie
+che compongono il malware. Riusciamo a vedere infatti stringhe comprensibili
+come siti internet ("http://..."), ma la maggior parte delle informazioni non hanno un corrispondente ASCII sensato.
+Procedendo allo stesso modo con UPX2, invece, si ha una corrispondenza con la sezione `.rdata`
+
+Considerazione finale:
+con un'analisi statica basica, analizzando quindi specifiche porzioni del file binario utilizzando tool appositi,
+si può dedurre che il malware effettua una connessione ad internet, probabilmente utilizzando protocollo `http`.
+Leggendo il nome delle funzioni vediamo che potrebbe interagire direttamente con `Windows Explorer` e eseguire istruzioni
+basandosi sul tempo locale (`SystemTimeToFile`).
+Dal momento che il file è stato compresso con UPX, è necessario procedere con la fase di debugging per poterlo
+spacchettare.
